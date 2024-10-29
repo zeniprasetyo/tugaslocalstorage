@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALCULATOR CALORIES</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-primary fixed-top">
+        <div class="container-fluid justify-content-center">
+          <a class="navbar-brand" href="javascript:void(0)">Logo</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <form class="form-inline w-25">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2">
+                <button class="btn bg-white btn-round rounded-right"><i class="fas fa-search"></i></button>
+              </div>
+          </form>
+        </div>
+    </nav>     
+      
+    <div class="container-fluid bg-primary text-white text-center">
+        <div class="row">
+            <div class="col-md-4 p-5 d-none d-md-block">
+                <div class="justify-content-center ">
+                    <p class="h1 lh-1 text-start pt-5">Semangat Berbagi<br>
+                        Semangat Indonesia
+                    </p>
+                    <p class="h5">www.aksiberbagi.com</p>   
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img src="calories-nutrition-food-exercise-concept.jpg" class="img-fluid rounded mx-auto d-block" alt="...">
+            </div>
+            <div class="col-md-4 p-5 d-none d-md-block">
+                <div class="d-flex justify-content-center align-items-center ">
+                    <p class="h1 lh-1 text-start pt-5">#Bergerak <br>
+                        <span class="h3">Untuk Indonesia</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 mx-auto p-0">
+                <div class="card">
+                    <div class="card-body bg-info">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-grid">
+                                    <button class="btn btn-success">Cek Kalori harian</button>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-grid">
+                                    <button class="btn btn-warning text-white">Ayo Cek Segera</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-12 mx-auto p-0">
+                <div class="card p-4">
+                    <div class="container mt-4">
+                        <h2 class="text-center mb-4">Riwayat Penghitungan Kalori</h2>
+                        
+                        <!-- Form pencarian -->
+                        <div class="mb-3">
+                            <input type="text" id="search-input" class="form-control" placeholder="Cari berdasarkan nama...">
+                        </div>
+                        
+                        <div id="history-container" class="table-responsive mt-3">
+                            <!-- Tabel data riwayat akan ditampilkan di sini -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Editing Entry -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Entry</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-form">
+                        <div class="mb-3">
+                            <label for="edit-name" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="edit-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-age" class="form-label">Usia</label>
+                            <input type="number" class="form-control" id="edit-age" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-weight" class="form-label">Berat (kg)</label>
+                            <input type="number" class="form-control" id="edit-weight" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-height" class="form-label">Tinggi (cm)</label>
+                            <input type="number" class="form-control" id="edit-height" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-gender" class="form-label">Gender</label>
+                            <select class="form-select" id="edit-gender" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="Male">Laki-laki</option>
+                                <option value="Female">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-activity" class="form-label">Aktivitas</label>
+                            <input type="text" class="form-control" id="edit-activity" required>
+                        </div>
+                        <input type="hidden" id="edit-index">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="save-changes">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 mx-auto p-0 fixed-bottom">
+                <nav class="navbar navbar-light bg-light p-0">
+                    <div class="container-fluid justify-content-around">
+                        <a class="navbar-brand text-center m-0 fs-6" href="index.html">
+                            <i class="fas fa-home"></i><br>Beranda
+                        </a>
+                        <a class="navbar-brand text-center m-0 fs-6" href="history.html">
+                            <i class="fa fa-history" aria-hidden="true"></i><br>History
+                        </a>
+                        <a class="navbar-brand text-center m-0 fs-6" href="#">
+                            <i class="fas fa-file-alt"></i><br>Halaman
+                        </a>
+                        <a class="navbar-brand text-center m-0 fs-6" href="#">
+                            <i class="fas fa-user-circle"></i><br>Profil
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function () {
+            // Mengambil riwayat dari localStorage
+            let history = JSON.parse(localStorage.getItem('history')) || [];
+            
+            function renderTable() {
+                if (history.length === 0) {
+                    $('#history-container').html('<p class="text-center text-muted">Belum ada riwayat.</p>');
+                } else {
+                    // Membuat tabel untuk menampilkan data riwayat
+                    let tableHTML = `
+                        <table class="table table-bordered table-striped">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Usia</th>
+                                    <th>Berat (kg)</th>
+                                    <th>Tinggi (cm)</th>
+                                    <th>Gender</th>
+                                    <th>Aktivitas</th>
+                                    <th>Kebutuhan Kalori</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                    `;
+
+                    history.forEach((entry, index) => {
+                        tableHTML += `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td class="name">${entry.name}</td>
+                                <td>${entry.age}</td>
+                                <td>${entry.weight}</td>
+                                <td>${entry.height}</td>
+                                <td>${entry.gender}</td>
+                                <td>${entry.activity}</td>
+                                <td>${Math.round(entry.calories)} kalori</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm edit-btn" data-index="${index}">Edit</button>
+                                    <button class="btn btn-danger btn-sm delete-btn" data-index="${index}">Delete</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    tableHTML += `
+                            </tbody>
+                        </table>
+                    `;
+
+                    // Menambahkan tabel ke dalam container
+                    $('#history-container').html(tableHTML);
+                }
+            }
+
+            renderTable();
+
+            // Fungsi pencarian
+            $('#search-input').on('keyup', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                $('#history-table-body tr').filter(function() {
+                    $(this).toggle($(this).find('.name').text().toLowerCase().indexOf(searchTerm) > -1);
+                });
+            });
+
+            // Handle Edit Button Click
+            $(document).on('click', '.edit-btn', function() {
+                const index = $(this).data('index');
+                const entry = history[index];
+
+                // Populate the modal with the selected entry data
+                $('#edit-name').val(entry.name);
+                $('#edit-age').val(entry.age);
+                $('#edit-weight').val(entry.weight);
+                $('#edit-height').val(entry.height);
+                $('#edit-gender').val(entry.gender);
+                $('#edit-activity').val(entry.activity);
+                $('#edit-index').val(index);
+
+                $('#editModal').modal('show');
+            });
+
+            // Save changes to the entry
+            $('#save-changes').on('click', function() {
+                const index = $('#edit-index').val();
+                const updatedEntry = {
+                    name: $('#edit-name').val(),
+                    age: $('#edit-age').val(),
+                    weight: $('#edit-weight').val(),
+                    height: $('#edit-height').val(),
+                    gender: $('#edit-gender').val(),
+                    activity: $('#edit-activity').val(),
+                    calories: calculateCalories($('#edit-weight').val(), $('#edit-height').val(), $('#edit-age').val(), $('#edit-gender').val()) // Add your own calorie calculation logic
+                };
+
+                history[index] = updatedEntry;
+                localStorage.setItem('history', JSON.stringify(history));
+                $('#editModal').modal('hide');
+                renderTable();
+            });
+
+            // Handle Delete Button Click
+            $(document).on('click', '.delete-btn', function() {
+                const index = $(this).data('index');
+                history.splice(index, 1); // Remove entry from history
+                localStorage.setItem('history', JSON.stringify(history));
+                renderTable(); // Re-render the table
+            });
+
+            // Function to calculate calories (you can adjust this function as needed)
+            function calculateCalories(weight, height, age, gender) {
+                // Simple calculation for demonstration purposes
+                const bmr = gender === 'Male' ? 66 + (6.23 * weight) + (12.7 * height) - (6.8 * age) : 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age);
+                return bmr * 1.2; // Assuming a sedentary lifestyle for example
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
